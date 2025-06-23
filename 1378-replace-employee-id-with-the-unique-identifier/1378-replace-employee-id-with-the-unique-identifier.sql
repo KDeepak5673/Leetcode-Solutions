@@ -2,4 +2,4 @@
 SELECT EN.unique_id, E.name
 FROM Employees AS E
 LEFT JOIN EmployeeUNI AS EN
-USING(id);
+ON E.id = EN.id;
