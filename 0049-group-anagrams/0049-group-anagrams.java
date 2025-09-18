@@ -1,47 +1,21 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        List<List<String>> ans = new ArrayList<>();
+        Map<String , List<String>> map = new HashMap<>();
 
-        boolean[] visit = new boolean[strs.length];
+        for(String s : strs){
+            int[] count = new int[26];
 
-        for(int i = 0 ; i < strs.length ; i++){
-            List<String> temp = new ArrayList<>();
-
-            if(!visit[i]){
-                temp.add(strs[i]);
+            for(char ch : s.toCharArray()){
+                count[ch - 'a']++;
             }
-            visit[i] = true;
-            for(int j = i+1 ; j < strs.length ; j++){
-                if(!visit[j] && isAnagrams(strs[j] , strs[i])){
-                    temp.add(strs[j]);
-                    visit[j] = true; 
-                }
-            }
-            if(!temp.isEmpty())
-            ans.add(temp);
-  
+
+            String key = Arrays.toString(count);
+            map.putIfAbsent(key, new ArrayList<>());
+            map.get(key).add(s);
         }
+
+        return new ArrayList<>(map.values());
+
         
-
-        return ans;
-    }
-    public boolean isAnagrams(String s , String t){
-        if(s.length() != t.length()){
-            return false;
-        }
-
-        ArrayList<Character> list = new ArrayList<>(); 
-
-        for(Character ch : s.toCharArray()){
-            list.add(ch);
-        }
-        for(Character ch : t.toCharArray()){
-            if(!list.contains(ch)){
-                return false;
-            }else{
-                list.remove(ch);
-            }
-        }
-        return true;
     }
 }
