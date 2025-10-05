@@ -1,28 +1,22 @@
 class Solution {
     public int dayOfYear(String date) {
-        String[] str = date.split("-");
 
-        int[] ans = new int[str.length];
+        
+        int[] days = {31 , 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int year = Integer.parseInt(date.substring(0, 4));
+        int day = Integer.parseInt(date.substring(8, 10));
+        int m = Integer.parseInt(date.substring(5, 7));      
 
-        for(int i = 0 ; i < str.length ;i++){
-            ans[i] = Integer.parseInt(str[i]);
-        }
-        int[] days = {0, 31 , 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
-        int year = ans[0];
-        int ex = 0;
-        int m = days[(ans[1])-1];
-
-        // if(m == 1 , )
-
-
-        if((year % 4 == 0 && year % 100 != 0 ) || year % 400 == 0 ){
-            if(ans[1] > 2) {
-                ex =1;
-            }
+        if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
+            days[1] = 29;
 
         }
+        int answer = day;
+        for(int i = 0 ; i < m-1 ;i++){
+            answer += days[i];
+        }
 
-        int answer = ans[2]+m+ex;
+        
 
         return answer;
     }
